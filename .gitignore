@@ -1,0 +1,22 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+*.html
+*.js
+*.css
+*.png
+*.jpg
+*.gif
+=======
+=======
+>>>>>>> 1eedcf235afc3f01a01bb9751bda52a84160471e
+/lib/**/*.html
+/lib/**/*.js
+/lib/**/*.css
+
+/lib/**/*.jpg
+/lib/**/*.png
+/lib/**/*.gif
+<<<<<<< HEAD
+>>>>>>> 1667c08... Update .gitignore
+=======
+>>>>>>> 1eedcf235afc3f01a01bb9751bda52a84160471e
