@@ -37,7 +37,7 @@ public class Launcher {
 	 * Display a random encounter.
 	 * 
 	 * @param zone : the zone used to read the encounter table.
-	 * @param numberOfCreatures : the number of creatures to encounter.
+	 * @param isDay : check if this is the day.
 	 */
 	public static void EncounterCreatures(Zones zone, boolean isDay) {
 		Workbook workbook = ExcelReader.openWorkbook(RESOURCES_PATH + FILE_NAME);
