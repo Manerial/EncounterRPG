@@ -85,30 +85,43 @@ public class ExcelReader {
 	 * 
 	 * @param row : the row to display.
 	 */
-	public static void displayRow(Row row) {
-		for (int cellNum = 0; cellNum < row.getLastCellNum() - 1; cellNum++) {
-			System.out.print(getCellValue(row.getCell(cellNum)) + ";");
+	public static String rowToString(Row row) {
+		String rowStr = "";
+		for (int cellNum = 0; cellNum < row.getLastCellNum(); cellNum++) {
+			rowStr = String.join(";", rowStr, getCellValue(row.getCell(cellNum)).toString());
 		}
-		System.out.println(getCellValue(row.getCell(row.getLastCellNum() - 1)));
+		return rowStr.substring(1);
 	}
 
 	/**
-	 * Display the whole workbook (csv like).
+	 * Get the list of sheets of a workbook.
 	 * 
 	 * @param workbook : the workbook to display.
 	 */
-	public static void displayWorkbook(Workbook workbook) {
+	public static String sheetsListToString(Workbook workbook) {
+		String sheets = "";
 		for (int sheetNumber = 0; sheetNumber < workbook.getNumberOfSheets(); sheetNumber++) {
 			Sheet sheet = workbook.getSheetAt(sheetNumber);
-			Row headerRow = sheet.getRow(0);
-			System.out.println("=====" + sheet.getSheetName() + "=====");
-			displayRow(headerRow);
+			sheets = String.join("\r\n", sheet.getSheetName());
+		}
+		return sheets;
+	}
 
-			for (int rowNumber = 1; rowNumber <= sheet.getLastRowNum(); rowNumber++) {
-				Row valuesRow = sheet.getRow(rowNumber);
-				displayRow(valuesRow);
+	/**
+	 * Get the whole workbook, csv like.
+	 * 
+	 * @param workbook : the workbook to display.
+	 */
+	public static String workbookToString(Workbook workbook) {
+		String workbookStr = "";
+		for (int sheetNumber = 0; sheetNumber < workbook.getNumberOfSheets(); sheetNumber++) {
+			Sheet sheet = workbook.getSheetAt(sheetNumber);
+			workbookStr = String.join("\r\n", workbookStr, sheet.getSheetName());
+
+			for (int rowNumber = 0; rowNumber <= sheet.getLastRowNum(); rowNumber++) {
+				workbookStr = String.join("\r\n", workbookStr, rowToString(sheet.getRow(rowNumber)));
 			}
 		}
-		closeWorkbook(workbook);
+		return workbookStr;
 	}
 }
