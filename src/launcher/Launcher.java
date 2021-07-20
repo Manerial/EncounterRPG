@@ -1,5 +1,7 @@
 package launcher;
 
+import java.util.Set;
+
 import org.apache.poi.ss.usermodel.Workbook;
 
 import encounter.EncounterManager;
@@ -29,12 +31,13 @@ public class Launcher {
 		for(int i = 0; i < args.length; i++) {
 			switch(args[i]) {
 			case "-z" :
+				zone = args[i+1];
 				break;
 			case "-zl":
+				message = getZones();
 				break;
-			case "-k" :
-				break;
-			case "-d" :
+			case "-n" :
+				number = Integer.parseInt(args[i+1]);
 				break;
 			case "-h":
 				message = String.join("\r\n",
@@ -44,7 +47,6 @@ public class Launcher {
 						"-z <zone>\t: Set zone of encounters",
 						"-zl \t: Zone list",
 						"-n <number>\t: Number of encounters",
-						"-t <time>\t: Set the time of the day (day / night)",
 						"-h*\t\t: Help",
 						"",
 						"* : Using this argument will avoid file generation");
@@ -58,11 +60,22 @@ public class Launcher {
 	/**
 	 * Display a workbook using the ExcelReader.
 	 */
-	public static void displayWorkbook() {
+	public static String displayWorkbook() {
 		Workbook workbook = ExcelReader.openWorkbook(RESOURCES_PATH + FILE_NAME);
 		String workbookContent = ExcelReader.workbookToString(workbook);
-		System.out.println(workbookContent);
 		ExcelReader.closeWorkbook(workbook);
+		return workbookContent;
+	}
+
+	/**
+	 * Display a workbook using the ExcelReader.
+	 */
+	public static String getZones() {
+		Workbook workbook = ExcelReader.openWorkbook(RESOURCES_PATH + FILE_NAME);
+		encounterManager.setEncounters(workbook);
+		ExcelReader.closeWorkbook(workbook);
+		Set<String> zones = encounterManager.getKeySet();
+		return zones.toString();
 	}
 
 	/**

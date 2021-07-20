@@ -3,6 +3,7 @@ package encounter;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.TreeMap;
 import java.math.BigDecimal;
 
@@ -91,5 +92,9 @@ public class EncounterManager {
 			totalPopulation = totalPopulation.add(zoneOfEncounter.get(key));
 		}
 		return totalPopulation;
+	}
+
+	public Set<String> getKeySet() {
+		return encounters.keySet();
 	}
 }
